@@ -4,7 +4,7 @@ import org.knit.TaskDescription;
 import org.knit.solutions.Task2_12_Classes.Caretaker;
 import org.knit.solutions.Task2_12_Classes.TextEditor;
 
-/**
+/*
  * Паттерн Memento (Хранитель)
  * Задача 12: Реализация системы отмены изменений в текстовом редакторе
  * Разработайте систему, позволяющую сохранять состояния текста в редакторе и

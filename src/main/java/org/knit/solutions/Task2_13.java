@@ -3,7 +3,7 @@ package org.knit.solutions;
 import org.knit.TaskDescription;
 import org.knit.solutions.Task2_13_Classes.*;
 
-/**
+/*
  * Паттерн Command (Команда)
  * Задача 13: Реализация системы команд для управления умным домом
  *
