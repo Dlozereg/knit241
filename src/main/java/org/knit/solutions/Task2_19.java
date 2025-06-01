@@ -32,8 +32,9 @@ import org.knit.TaskDescription;
  *
  * Напишите решение, а затем напишите JUnit тесты для проверки решения
  * Тесты должны покрывать
- * --Обычные случаи (с нулями и без).
- * --Краевые случаи (пустые массивы, все нули, нули на границах).
+ * --Обычные случаи (слияние с данными и без).
+ * --Краевые случаи (пустые массивы, все элементы в одном массиве).
+ * --Отрицательные числа и дубликаты.
  * --Производительность (большие массивы). // просто зафиксировать время выполнения по производительности
  * эмпирическим путем
  */
@@ -41,5 +42,54 @@ import org.knit.TaskDescription;
 public class Task2_19 implements Solution {
     @Override
     public void execute() {
+        System.out.println("JUnit tests");
+    }
+
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        // pointer_m - индекс последнего значимого эл-та nums1,
+        // pointer_n - индекс последнего значимого эл-та nums2
+        int pointer_m = m - n - 1;
+        int pointer_n = n - 1;
+
+        //System.out.println(Arrays.toString(nums1));
+
+        if (pointer_n == -1) {
+            // nums2 пустой, nums1 уже готов
+        } else if (pointer_m == -1) {
+            // значимых эл-ов в nums1 нет, копируем nums2 в nums1
+            for (int j = 0; j <= pointer_n; j++) {
+                nums1[j] = nums2[j];
+            }
+        }
+        else {
+            // идём с конца массива nums1
+            for (int i = m - 1; i >= 0; i--) {
+                //System.out.printf("i=%s, m=%s, n=%s\n", i, pointer_m, pointer_n);
+
+                // проверяем, (значимый) эл-т какого массива больше, его и вставляем в конец
+                if (nums2[pointer_n] >= nums1[pointer_m]) {
+                    nums1[i] = nums2[pointer_n];
+                    // если все эл-ты nums2 вставлены, то оставшиеся эл-ты nums1 меньше
+                    // последнего вставленного и уже отсортированы
+                    if (pointer_n == 0) {
+                        break;
+                    }
+                    pointer_n--;
+                } else {
+                    nums1[i] = nums1[pointer_m];
+                    // если все значимые эл-ты nums1 вставлены, то оставшиеся эл-ты nums2
+                    // отсортированы и меньше последнего вставленного эл-та,
+                    // просто переносим их в nums1
+                    if (pointer_m == 0) {
+                        for (int j = 0; j <= pointer_n; j++) {
+                            nums1[j] = nums2[j];
+                        }
+                        break;
+                    }
+                    pointer_m--;
+                }
+                //System.out.println(Arrays.toString(nums1));
+            }
+        }
     }
 }
